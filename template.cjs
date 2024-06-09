@@ -1,4 +1,6 @@
-const template = (variables, { tpl }) => tpl`
+const template = (variables, { tpl }) => {
+  const componentName = variables.componentName.substring(3);
+  return tpl`
 import { SVGProps } from "react";
 
 interface IconProps extends SVGProps<SVGSVGElement> {
@@ -8,11 +10,12 @@ interface IconProps extends SVGProps<SVGSVGElement> {
 
 ${variables.interfaces};
 
-const ${variables.componentName} = ({primaryColor, secondaryColor, ...props}: IconProps) => (
+export const ${componentName} = (props: IconProps) => (
   ${variables.jsx}
 );
 
-export default ${variables.componentName}
+export default ${componentName}
 
 `;
+};
 module.exports = template;

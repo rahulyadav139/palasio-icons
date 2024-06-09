@@ -11,10 +11,10 @@ module.exports = {
     fontSize: '2.25rem',
   },
   replaceAttrValues: {
-    primaryColor: '{primaryColor}',
-    secondaryColor: '{secondaryColor}',
+    primaryColor: '{props.primaryColor}',
+    secondaryColor: '{props.secondaryColor}',
     strokeWidth: '{props.strokeWidth ?? 1.2}',
-    stroke: '{props.stroke}',
+    stroke: "{props.stroke ?? '#000'}",
   },
   outDir: 'lib',
   dimensions: false,
@@ -23,7 +23,7 @@ module.exports = {
     const exportEntries = filePaths.map(({ path: filePath }) => {
       const basename = path.basename(filePath, path.extname(filePath));
 
-      return `export { default as ${basename} } from './${basename}'`;
+      return `export { ${basename} } from './${basename}'`;
     });
     return exportEntries.join('\n');
   },
