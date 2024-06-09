@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "build:icons": "npm run generate && tsc --p ./tsconfig.build.json && vite build --config vite.config.lib.ts",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "generate": "find lib -mindepth 1 ! -name 'package.json' -print -delete && svgr assets",
+    "generate": "find lib -mindepth 1 ! -name 'package.json' -print -delete && svgr assets && npm run merge --path=lib",
     "merge": "node ./scripts/merge-exports.js"
   },
   "dependencies": {
