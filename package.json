@@ -7,10 +7,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --p ./tsconfig.build.json && vite build",
+    "build": "npm run generate && tsc --p ./tsconfig.build.json && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "generate": "find lib -mindepth 1 ! -name 'package.json' -print -delete && svgr assets && npm run merge --path=lib",
+    "generate": "find lib -mindepth 1 ! -name 'package.json' -print -delete && svgr assets --icon && npm run merge --path=lib",
     "merge": "node ./scripts/merge-exports.js"
   },
   "dependencies": {

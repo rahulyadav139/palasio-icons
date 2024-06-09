@@ -1,12 +1,12 @@
-import { SVGProps } from 'react';
+import type { IconProps } from '@/types/icon';
 
-type IconsType = (props: SVGProps<SVGSVGElement>) => JSX.Element;
+type IconsType = (props: IconProps) => JSX.Element;
 
-type IconProps = SVGProps<SVGSVGElement> & {
+type Props = IconProps & {
   Component: IconsType | null;
 };
 
-export const Icon = ({ Component, ...props }: IconProps) => {
+export const Icon = ({ Component, ...props }: Props) => {
   if (!Component) return null;
 
   return <Component {...props} />;

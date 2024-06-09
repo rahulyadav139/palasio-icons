@@ -8,11 +8,11 @@ interface IconProps extends SVGProps<SVGSVGElement> {
 
 ${variables.interfaces};
 
-export const ${variables.componentName.substring(
-  3
-)} = ({primaryColor, secondaryColor, ...props}: IconProps) => (
+const ${variables.componentName} = ({primaryColor, secondaryColor, ...props}: IconProps) => (
   ${variables.jsx}
 );
+
+export default ${variables.componentName}
 
 `;
 module.exports = template;

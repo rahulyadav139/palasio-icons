@@ -1,13 +1,9 @@
-import { Bin } from '@lib';
+import Bin from '@lib/Bin';
 
 export const Playground = () => {
   return (
     <>
-      <Bin
-        width="72px"
-        height="72px"
-        style={{ stroke: 'red', border: '1px solid red' }}
-      />
+      <Bin width="72px" height="72px" color="red" />
     </>
   );
 };

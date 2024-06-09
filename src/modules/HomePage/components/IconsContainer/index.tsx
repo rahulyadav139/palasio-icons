@@ -62,6 +62,7 @@ export const IconsContainer = () => {
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setSearchQuery(e.target.value)
           }
+          type="search"
         />
 
         <div
@@ -160,7 +161,7 @@ export const IconsContainer = () => {
               fontSize: '14px',
               // overflow: 'auto',
               padding: '1rem',
-              fontFamily: 'monochrome',
+              fontFamily: 'monospace',
               fontWeight: 400,
               cursor: 'pointer',
               position: 'relative',
@@ -201,10 +202,7 @@ export const IconsContainer = () => {
           >
             <Icon
               Component={SelectedIcon}
-              style={{
-                width: '72px',
-                height: '72px',
-              }}
+              fontSize= '12rem'
             />
           </div>
         </div>

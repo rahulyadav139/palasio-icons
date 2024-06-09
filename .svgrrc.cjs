@@ -6,8 +6,9 @@ module.exports = {
   typescript: true,
   jsxRuntime: 'automatic',
   svgProps: {
-    width: '24px',
-    height: '24px',
+    width: '1em',
+    height: '1em',
+    fontSize: '2.25rem',
   },
   replaceAttrValues: {
     primaryColor: '{primaryColor}',
@@ -22,7 +23,7 @@ module.exports = {
     const exportEntries = filePaths.map(({ path: filePath }) => {
       const basename = path.basename(filePath, path.extname(filePath));
 
-      return `export { ${basename} } from './${basename}'`;
+      return `export { default as ${basename} } from './${basename}'`;
     });
     return exportEntries.join('\n');
   },

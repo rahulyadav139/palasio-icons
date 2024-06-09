@@ -24,7 +24,6 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'lib/index.ts'),
-      formats: ['es'],
     },
     copyPublicDir: false,
     emptyOutDir: false,
