@@ -2,19 +2,18 @@
   "name": "palasio-icons",
   "private": true,
   "version": "0.0.0",
-  "main": "index.js",
-  "types": "types/index.d.ts",
+  "main": "./esm/index.mjs",
+  "types": "./types/index.d.ts",
   "exports": {
-    "./package.json": "./package.json",
     ".": {
-      "import": {
-        "types": "./types/index.d.ts",
-        "default": "./esm/index.js"
-      },
-      "require": {
-        "types": "./types/index.d.ts",
-        "default": "./cjs/index.js"
-      }
+      "import": "./esm/index.mjs",
+      "require": "./cjs/index.cjs",
+      "types": "./types/index.d.ts"
+    },
+    "./*": {
+      "import": "./esm/*.mjs",
+      "require": "./cjs/*.cjs",
+      "types": "./types/*.d.ts"
     }
   },
   "peerDependencies": {
