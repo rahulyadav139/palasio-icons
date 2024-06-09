@@ -1,4 +1,4 @@
-import Bin from '@lib/Bin';
+import { Bin } from '@lib';
 
 export const Playground = () => {
   return (

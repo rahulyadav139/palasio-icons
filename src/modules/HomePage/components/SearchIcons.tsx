@@ -1,8 +1,8 @@
 import * as icons from '@lib';
 import { useState, SVGProps, ChangeEvent } from 'react';
-import styles from './IconsContainer.module.css';
+import styles from '../styles/SearchIcons.module.css';
 import { Input } from '@/components';
-import { Icon } from '../Icon';
+import { Icon } from './Icon';
 import { useTimedState } from '@/hooks';
 
 type IconsType = {
@@ -16,7 +16,7 @@ const filters: { label: string; value: string | null }[] = [
   { label: 'Two tone', value: 'twoTone' },
 ];
 
-export const IconsContainer = () => {
+export const SearchIcons = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
   const [filter, setFilter] = useState<string | null>(null);
@@ -47,50 +47,24 @@ export const IconsContainer = () => {
   const SelectedIcon = selectedIcon ? (icons as IconsType)[selectedIcon] : null;
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        gap: '1rem',
-        alignItems: 'flex-start',
-        padding: '8px',
-      }}
-    >
-      <div className={styles.container}>
+    <div className={styles.container}>
+      <div className={styles.card}>
         <Input
           placeholder="Search icons"
+          type="search"
           value={searchQuery}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setSearchQuery(e.target.value)
           }
-          type="search"
         />
 
-        <div
-          style={{
-            display: 'flex',
-            gap: '1rem',
-            marginTop: '1rem',
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '0.2rem',
-              justifyContent: 'flex-start',
-            }}
-          >
+        <div className={styles.iconsContainer}>
+          <div className={styles.filters}>
             {filters.map(({ label, value }) => (
               <div
                 key={label}
+                className={styles.filterLabel}
                 style={{
-                  border: '1px solid #000',
-                  borderRadius: '5px',
-                  padding: '5px 8px',
-                  fontSize: '12px',
-                  cursor: 'pointer',
-                  fontWeight: 300,
-                  transition: 'all 0.2s ease-in',
                   ...(filter === value && {
                     background: '#000',
                     color: '#fff',
@@ -103,13 +77,7 @@ export const IconsContainer = () => {
             ))}
           </div>
 
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: '1rem',
-            }}
-          >
+          <div className={styles.flexContainer}>
             {filteredIcons.map(name => {
               const Component = (icons as IconsType)[name];
               return (
@@ -124,48 +92,10 @@ export const IconsContainer = () => {
         </div>
       </div>
       {selectedIcon && (
-        <div
-          style={{
-            minWidth: '450px',
-
-            //   opacity: selectedIcon ? 1 : 0,
-            //   overflow: 'none',
-            //   transition: 'all 0.3s ease-in-out',
-            background: 'rgba(246, 247, 248, 0.5)',
-            border: '1px solid rgb(232, 234, 238)',
-
-            //   padding: '1rem',
-            borderRadius: '8px',
-            position: 'relative',
-          }}
-        >
+        <div className={styles.iconPreviewCard}>
+          <div className={styles.selectedIconName}>{selectedIcon}</div>
           <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            <div
-              style={{
-                padding: '0.5rem 1rem',
-                fontWeight: 400,
-              }}
-            >
-              {selectedIcon}
-            </div>
-          </div>
-          <div
-            style={{
-              background: '#000',
-              color: '#fff',
-              fontSize: '14px',
-              // overflow: 'auto',
-              padding: '1rem',
-              fontFamily: 'monospace',
-              fontWeight: 400,
-              cursor: 'pointer',
-              position: 'relative',
-            }}
+            className={styles.importStatement}
             onClick={() => {
               navigator.clipboard.writeText(
                 `import { ${selectedIcon} } from "@lib"`
@@ -177,33 +107,10 @@ export const IconsContainer = () => {
             <>{`{ ${selectedIcon} }`}</>
             <span style={{ color: '#66d9ef' }}> from </span>
             <span style={{ color: '#a6e22e' }}>"@lib"</span>
-            {isTooltip && (
-              <div
-                style={{
-                  position: 'absolute',
-                  top: -18,
-                  right: 5,
-                  color: '#000',
-                  fontSize: '12px',
-                }}
-              >
-                Copied
-              </div>
-            )}
+            {isTooltip && <div className={styles.tooltip}>Copied</div>}
           </div>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              // marginTop: '1rem',
-              padding: '20px 0',
-            }}
-          >
-            <Icon
-              Component={SelectedIcon}
-              fontSize= '12rem'
-            />
+          <div className={styles.previewIcon}>
+            <Icon Component={SelectedIcon} fontSize="12rem" />
           </div>
         </div>
       )}
