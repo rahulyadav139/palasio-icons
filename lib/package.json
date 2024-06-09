@@ -1,7 +1,7 @@
 {
   "name": "palasio-icons",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "./esm/index.mjs",
   "types": "./types/index.d.ts",
   "exports": {
