@@ -37,13 +37,21 @@ const initialize = () => {
 
   getAllFilePaths(folderPath);
 
+  if (folderPath.length === 0) {
+    rl.close();
+    return console.log('\u001b[1;31m \nError \u001b[0m\n\nEmpty folder.');
+  }
+
+  const ext = filePaths[0].split('.')[1];
+
   let exportData = '';
   const folderRegex = new RegExp(`^${folderPath}`);
 
   const rootIndex = ['js', 'ts'].map(el => `${folderPath}/index.${el}`);
 
   const rootPath = filePaths.find(filePath => rootIndex.includes(filePath));
-  const rootContent = fs.readFileSync(rootPath).toString();
+
+  const rootContent = rootPath ? fs.readFileSync(rootPath).toString() : '';
   const paths = filePaths.filter(path => path !== rootPath);
   for (const filePath of paths) {
     let content = fs.readFileSync(filePath).toString();
@@ -60,7 +68,13 @@ const initialize = () => {
     exportData += content;
   }
 
-  fs.appendFileSync(rootPath, exportData);
+  if (rootPath) {
+    fs.appendFileSync(rootPath, exportData);
+  } else {
+    const newFile = fs.createWriteStream(`${folderPath}/index.${ext}`);
+
+    newFile.write(exportData);
+  }
   rl.close();
 };
 

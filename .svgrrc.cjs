@@ -18,6 +18,7 @@ module.exports = {
   },
   outDir: 'lib',
   dimensions: false,
+  exportType: 'named',
   template,
   indexTemplate: filePaths => {
     const exportEntries = filePaths.map(({ path: filePath }) => {

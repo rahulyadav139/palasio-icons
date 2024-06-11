@@ -12,8 +12,8 @@ import { copy } from 'vite-plugin-copy';
 export default defineConfig({
   plugins: [
     react(),
-    dts({ include: ['lib'], outDir: './package/types' }),
-    copy([{ src: 'lib/package.json', dest: 'package/' }]) as PluginOption,
+    dts({ include: ['lib'], outDir: './build/types' }),
+    copy([{ src: 'lib/build.json', dest: 'build/' }]) as PluginOption,
   ],
   build: {
     lib: {
@@ -39,14 +39,14 @@ export default defineConfig({
       ),
       output: [
         {
-          dir: 'package/esm',
+          dir: 'build/esm',
           format: 'es',
           preserveModules: true,
           entryFileNames: '[name].mjs',
           exports: 'named',
         },
         {
-          dir: 'package/cjs',
+          dir: 'build/cjs',
           format: 'cjs',
           preserveModules: true,
           entryFileNames: '[name].cjs',

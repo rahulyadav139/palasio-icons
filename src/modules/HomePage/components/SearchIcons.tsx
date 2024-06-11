@@ -5,15 +5,20 @@ import { Input } from '@/components';
 import { Icon } from './Icon';
 import { useTimedState } from '@/hooks';
 
+interface IconComponent {
+  (props: SVGProps<SVGSVGElement>): JSX.Element;
+  path: string;
+}
+
 type IconsType = {
-  [key: string]: (props: SVGProps<SVGSVGElement>) => JSX.Element;
+  [key: string]: IconComponent;
 };
 
 const filters: { label: string; value: string | null }[] = [
   { label: 'All', value: null },
   { label: 'Filled', value: 'filled' },
   { label: 'Outlined', value: 'outlined' },
-  { label: 'Two tone', value: 'twoTone' },
+  { label: 'Two tone', value: 'twotone' },
 ];
 
 export const SearchIcons = () => {
@@ -36,7 +41,7 @@ export const SearchIcons = () => {
     } else if (filter && filter === 'filled') {
       isMatchedFilter =
         !loweredCaseName.endsWith('outlined') &&
-        !loweredCaseName.endsWith('twoTone');
+        !loweredCaseName.endsWith('twotone');
     } else {
       isMatchedFilter = true;
     }
@@ -44,7 +49,14 @@ export const SearchIcons = () => {
     return isMatchedFilter && isMatchedWithQuery;
   });
 
-  const SelectedIcon = selectedIcon ? (icons as IconsType)[selectedIcon] : null;
+  let selectedIconComponent: IconComponent | null = null;
+
+  let defaultExportPath = '';
+
+  if (selectedIcon) {
+    selectedIconComponent = (icons as IconsType)[selectedIcon];
+    defaultExportPath = selectedIconComponent.path;
+  }
 
   return (
     <div className={styles.container}>
@@ -109,8 +121,25 @@ export const SearchIcons = () => {
             <span style={{ color: '#a6e22e' }}>"@lib"</span>
             {isTooltip && <div className={styles.tooltip}>Copied</div>}
           </div>
+          <div style={{ margin: '0.5rem 1rem', fontSize: '12.8px' }}>
+            Or import directly from the file
+          </div>
+          <div
+            className={styles.importStatement}
+            onClick={() => {
+              navigator.clipboard.writeText(
+                `import ${selectedIcon} from "${defaultExportPath}"`
+              );
+              setIsTooltip(true);
+            }}
+          >
+            <span style={{ color: '#66d9ef' }}>import </span>
+            <>{selectedIcon}</>
+            <span style={{ color: '#66d9ef' }}> from </span>
+            <span style={{ color: '#a6e22e' }}>"{defaultExportPath}"</span>
+          </div>
           <div className={styles.previewIcon}>
-            <Icon Component={SelectedIcon} fontSize="12rem" />
+            <Icon Component={selectedIconComponent} fontSize="12rem" />
           </div>
         </div>
       )}
