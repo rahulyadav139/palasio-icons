@@ -13,7 +13,7 @@ export default defineConfig({
   plugins: [
     react(),
     dts({ include: ['lib'], outDir: './build/types' }),
-    copy([{ src: 'lib/build.json', dest: 'build/' }]) as PluginOption,
+    copy([{ src: 'lib/package.json', dest: 'build/' }]) as PluginOption,
   ],
   build: {
     lib: {

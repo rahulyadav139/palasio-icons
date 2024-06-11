@@ -1,9 +1,11 @@
-import * as icons from '@lib';
+import * as icons from 'palasio-icons';
 import { useState, SVGProps, ChangeEvent } from 'react';
 import styles from '../styles/SearchIcons.module.css';
 import { Input } from '@/components';
 import { Icon } from './Icon';
 import { useTimedState } from '@/hooks';
+
+const PACKAGE_NAME = 'palasio-icons';
 
 interface IconComponent {
   (props: SVGProps<SVGSVGElement>): JSX.Element;
@@ -55,7 +57,7 @@ export const SearchIcons = () => {
 
   if (selectedIcon) {
     selectedIconComponent = (icons as IconsType)[selectedIcon];
-    defaultExportPath = selectedIconComponent.path;
+    defaultExportPath = `${PACKAGE_NAME}${selectedIconComponent.path}`;
   }
 
   return (
@@ -110,7 +112,7 @@ export const SearchIcons = () => {
             className={styles.importStatement}
             onClick={() => {
               navigator.clipboard.writeText(
-                `import { ${selectedIcon} } from "@lib"`
+                `import { ${selectedIcon} } from "${PACKAGE_NAME}"`
               );
               setIsTooltip(true);
             }}
@@ -118,7 +120,7 @@ export const SearchIcons = () => {
             <span style={{ color: '#66d9ef' }}>import </span>
             <>{`{ ${selectedIcon} }`}</>
             <span style={{ color: '#66d9ef' }}> from </span>
-            <span style={{ color: '#a6e22e' }}>"@lib"</span>
+            <span style={{ color: '#a6e22e' }}>"{PACKAGE_NAME}"</span>
             {isTooltip && <div className={styles.tooltip}>Copied</div>}
           </div>
           <div style={{ margin: '0.5rem 1rem', fontSize: '12.8px' }}>
