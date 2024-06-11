@@ -26,7 +26,7 @@ Before you begin, ensure you have the following installed:
 1 . Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/your-icons-library.git
+git clone https://github.com/rahulyadav139/palasio-icons
 cd your-icons-library
 ```
 
