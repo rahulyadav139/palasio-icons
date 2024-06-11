@@ -27,7 +27,7 @@ Before you begin, ensure you have the following installed:
 
 ```bash
 git clone https://github.com/rahulyadav139/palasio-icons
-cd your-icons-library
+cd palasio-icons
 ```
 
 2 . Install dependencies:
